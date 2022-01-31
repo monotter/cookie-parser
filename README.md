@@ -1,25 +1,15 @@
 # cookie-parser
-
-[![NPM Version][npm-version-image]][npm-url]
-[![NPM Downloads][npm-downloads-image]][npm-url]
-[![Build Status][ci-image]][ci-url]
-[![Test Coverage][coveralls-image]][coveralls-url]
+> this module ported from express/cookie-parser for deno opine
 
 Parse `Cookie` header and populate `req.cookies` with an object keyed by the
 cookie names. Optionally you may enable signed cookie support by passing a
 `secret` string, which assigns `req.secret` so it may be used by other
 middleware.
 
-## Installation
-
-```sh
-$ npm install cookie-parser
-```
-
 ## API
 
 ```js
-var cookieParser = require('cookie-parser')
+import cookieParser from 'https://deno.land/x/opine_cookie_parser@v1.4.7/mod.ts'
 ```
 
 ### cookieParser(secret, options)
@@ -86,10 +76,10 @@ unsign the cookie with each secret in order.
 ## Example
 
 ```js
-var express = require('express')
-var cookieParser = require('cookie-parser')
+import { opine } from 'https://deno.land/x/opine@2.1.1/mod.ts'
+import cookieParser from 'https://deno.land/x/opine_cookie_parser@v1.4.7/mod.ts'
 
-var app = express()
+const app = opine()
 app.use(cookieParser())
 
 app.get('/', function (req, res) {

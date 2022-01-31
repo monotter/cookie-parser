@@ -9,15 +9,6 @@ this file imported from https://github.com/jshttp/cookie/blob/master/index.js
  */
 
 'use strict';
-
-/**
- * Module exports.
- * @public
- */
-
-exports.parse = parse;
-exports.serialize = serialize;
-
 /**
  * Module variables.
  * @private
@@ -48,12 +39,12 @@ var fieldContentRegExp = /^[\u0009\u0020-\u007e\u0080-\u00ff]+$/;
  * @public
  */
 
-function parse(str, options) {
+function parse(str: string, options: any) {
   if (typeof str !== 'string') {
     throw new TypeError('argument str must be a string');
   }
 
-  var obj = {}
+  var obj: any = {}
   var opt = options || {};
   var pairs = str.split(';')
   var dec = opt.decode || decode;
@@ -100,7 +91,7 @@ function parse(str, options) {
  * @public
  */
 
-function serialize(name, val, options) {
+function serialize(name: string, val: string, options: any) {
   var opt = options || {};
   var enc = opt.encode || encode;
 
@@ -195,7 +186,7 @@ function serialize(name, val, options) {
  * @private
  */
 
-function tryDecode(str, decode) {
+function tryDecode(str: string, decode: (...params: any[]) => any) {
   try {
     return decode(str);
   } catch (e) {

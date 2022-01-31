@@ -11,20 +11,9 @@
  * Module dependencies.
  * @private
  */
-import * as cookie from './cookie.js'
-import * as signature from './cookie-signature.js'
-
-/**
- * Module exports.
- * @public
- */
-
-module.exports = cookieParser
-module.exports.JSONCookie = JSONCookie
-module.exports.JSONCookies = JSONCookies
-module.exports.signedCookie = signedCookie
-module.exports.signedCookies = signedCookies
-
+import * as cookie from './cookie.ts'
+import * as signature from './cookie-signature.ts'
+import { RequestHandler } from 'https://deno.land/x/opine@2.1.1/mod.ts'
 /**
  * Parse Cookie header and populate `req.cookies`
  * with an object keyed by the cookie names.
@@ -35,12 +24,12 @@ module.exports.signedCookies = signedCookies
  * @public
  */
 
-export function cookieParser (secret, options) {
+export function cookieParser (secret?: string | string[], options?: object): RequestHandler {
   var secrets = !secret || Array.isArray(secret)
     ? (secret || [])
     : [secret]
 
-  return function cookieParser (req, res, next) {
+  return function cookieParser (req: any, res, next) {
     if (req.cookies) {
       return next()
     }
@@ -79,8 +68,8 @@ export function cookieParser (secret, options) {
  * @public
  */
 
-export function JSONCookie (str) {
-  if (typeof str !== 'string' || str.substr(0, 2) !== 'j:') {
+export function JSONCookie (str: any) {
+  if (typeof str !== 'string' || str.substring(0, 2) !== 'j:') {
     return undefined
   }
 
@@ -99,7 +88,7 @@ export function JSONCookie (str) {
  * @public
  */
 
-export function JSONCookies (obj) {
+export function JSONCookies (obj: any) {
   var cookies = Object.keys(obj)
   var key
   var val
@@ -125,7 +114,7 @@ export function JSONCookies (obj) {
  * @public
  */
 
-export function signedCookie (str, secret) {
+export function signedCookie (str: string, secret: string | string[]) {
   if (typeof str !== 'string') {
     return undefined
   }
@@ -159,7 +148,7 @@ export function signedCookie (str, secret) {
  * @public
  */
 
-export function signedCookies (obj, secret) {
+export function signedCookies (obj: any, secret: string | string[]) {
   var cookies = Object.keys(obj)
   var dec
   var key
