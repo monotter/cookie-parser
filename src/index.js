@@ -11,9 +11,8 @@
  * Module dependencies.
  * @private
  */
-
-var cookie = require('cookie')
-var signature = require('cookie-signature')
+import * as cookie from './cookie.js'
+import * as signature from './cookie-signature.js'
 
 /**
  * Module exports.
@@ -36,7 +35,7 @@ module.exports.signedCookies = signedCookies
  * @public
  */
 
-function cookieParser (secret, options) {
+export function cookieParser (secret, options) {
   var secrets = !secret || Array.isArray(secret)
     ? (secret || [])
     : [secret]
@@ -80,7 +79,7 @@ function cookieParser (secret, options) {
  * @public
  */
 
-function JSONCookie (str) {
+export function JSONCookie (str) {
   if (typeof str !== 'string' || str.substr(0, 2) !== 'j:') {
     return undefined
   }
@@ -100,7 +99,7 @@ function JSONCookie (str) {
  * @public
  */
 
-function JSONCookies (obj) {
+export function JSONCookies (obj) {
   var cookies = Object.keys(obj)
   var key
   var val
@@ -126,7 +125,7 @@ function JSONCookies (obj) {
  * @public
  */
 
-function signedCookie (str, secret) {
+export function signedCookie (str, secret) {
   if (typeof str !== 'string') {
     return undefined
   }
@@ -160,7 +159,7 @@ function signedCookie (str, secret) {
  * @public
  */
 
-function signedCookies (obj, secret) {
+export function signedCookies (obj, secret) {
   var cookies = Object.keys(obj)
   var dec
   var key
